@@ -1,0 +1,20 @@
+- - DAY 1 OVER - -
+- New letter -
+Source: Burnaby
+Destination: Vancouver
+- Accepted letter -
+Destination: Vancouver
+- Standard transit departure -
+- - DAY 2 OVER - -
+- - DAY 3 OVER - -
+- Standard transit arrival -
+- Standard transit arrival -
+- Standard transit arrival -
+- - DAY 4 OVER - -
+- Incinerated letter -
+Destroyed at: Burnaby
+- Incinerated letter -
+Destroyed at: Burnaby
+- Incinerated package -
+Destroyed at: Burnaby
+- Burnaby OFFICE DESTROYED -

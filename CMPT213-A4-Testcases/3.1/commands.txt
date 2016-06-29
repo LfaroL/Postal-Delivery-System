@@ -1,0 +1,9 @@
+8
+LETTER Vancouver Bill Burnaby Apple
+DAY
+DAY
+DAY
+DAY
+PICKUP Burnaby Bill
+LETTER Vancouver Bill Burnaby Tom
+DAY

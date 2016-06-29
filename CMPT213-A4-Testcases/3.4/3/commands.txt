@@ -1,0 +1,19 @@
+18
+DAY
+LETTER Vancouver Simon Burnaby Bill
+LETTER Vancouver Jim Burnaby Bill
+PACKAGE Vancouver Simon Burnaby 500 500
+LETTER Burnaby Jim Vancouver Bill
+DAY
+PICKUP Burnaby Jim
+GOOD
+DAY
+DAY
+SCIENCE 2
+DAY
+DAY
+DAY
+DAY
+DAY
+DAY
+DAY

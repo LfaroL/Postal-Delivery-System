@@ -1,0 +1,13 @@
+12
+DAY
+LETTER Vancouver Simon Burnaby Bill
+SCIENCE 2
+LETTER Vancouver Jim Burnaby Bill
+DAY
+LETTER Vancouver Tom Burnaby Bill
+DAY
+PACKAGE Vancouver Simon Burnaby 500 500
+DAY
+DAY
+DAY
+DAY

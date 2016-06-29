@@ -1,0 +1,17 @@
+- New letter -
+Source: Vancouver
+Destination: Burnaby
+- Accepted letter -
+Destination: Burnaby
+- New package -
+Source: Vancouver
+Destination: Burnaby
+- Accepted package -
+Destination: Burnaby
+- Standard transit departure -
+- Standard transit departure -
+- - DAY 1 OVER - -
+- - DAY 2 OVER - -
+- - DAY 3 OVER - -
+- - DAY 4 OVER - -
+- - DAY 5 OVER - -

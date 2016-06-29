@@ -1,0 +1,13 @@
+12
+LETTER Vancouver Tom Burnaby Bill
+LETTER Vancouver Tom Burnaby Bill
+LETTER Vancouver Tom Burnaby Bill
+LETTER Vancouver Tom Burnaby Bill
+INFLATION
+PACKAGE Vancouver Simon Burnaby 10 3500
+PACKAGE Vancouver Simon Burnaby 14 3500
+PACKAGE Vancouver Simon Burnaby 10010 4500
+PACKAGE Vancouver Simon Burnaby 10018 4500
+DAY
+DAY
+DAY

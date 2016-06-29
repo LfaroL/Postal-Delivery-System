@@ -1,0 +1,13 @@
+12
+LETTER Vancouver Tom Burnaby Bill
+DAY
+PICKUP Burnaby Tom
+GOOD
+LETTER Vancouver Tom Burnaby Bill
+DAY
+PICKUP Burnaby Tom
+GOOD
+LETTER Vancouver Tom Burnaby Bill
+DAY
+DAY
+DAY

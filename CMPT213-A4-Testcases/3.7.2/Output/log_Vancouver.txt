@@ -1,0 +1,90 @@
+- New letter -
+Source: Vancouver
+Destination: Burnaby
+- Accepted letter -
+Destination: Burnaby
+- New letter -
+Source: Vancouver
+Destination: Burnaby
+- Accepted letter -
+Destination: Burnaby
+- New package -
+Source: Vancouver
+Destination: Burnaby
+- Rejected package -
+Source: Vancouver
+- New package -
+Source: Vancouver
+Destination: Burnaby
+- Accepted package -
+Destination: Burnaby
+- New package -
+Source: Vancouver
+Destination: Burnaby
+- Accepted package -
+Destination: Burnaby
+- New package -
+Source: Vancouver
+Destination: Burnaby
+- Rejected package -
+Source: Vancouver
+- New letter -
+Source: Vancouver
+Destination: Burnaby
+- Accepted letter -
+Destination: Burnaby
+- New letter -
+Source: Vancouver
+Destination: Burnaby
+- Accepted letter -
+Destination: Burnaby
+- New letter -
+Source: Vancouver
+Destination: Burnaby
+- Accepted letter -
+Destination: Burnaby
+- New letter -
+Source: Vancouver
+Destination: Burnaby
+- Accepted letter -
+Destination: Burnaby
+- New letter -
+Source: Vancouver
+Destination: Burnaby
+- Accepted letter -
+Destination: Burnaby
+- New letter -
+Source: Vancouver
+Destination: Burnaby
+- Accepted letter -
+Destination: Burnaby
+- New letter -
+Source: Vancouver
+Destination: Burnaby
+- Accepted letter -
+Destination: Burnaby
+- New letter -
+Source: Vancouver
+Destination: Burnaby
+- Accepted letter -
+Destination: Burnaby
+- New package -
+Source: Vancouver
+Destination: Burnaby
+- Rejected package -
+Source: Vancouver
+- Standard transit departure -
+- Standard transit departure -
+- Standard transit departure -
+- Standard transit departure -
+- Standard transit departure -
+- Standard transit departure -
+- Standard transit departure -
+- Standard transit departure -
+- Standard transit departure -
+- Standard transit departure -
+- Standard transit departure -
+- Standard transit departure -
+- - DAY 1 OVER - -
+- - DAY 2 OVER - -
+- - DAY 3 OVER - -

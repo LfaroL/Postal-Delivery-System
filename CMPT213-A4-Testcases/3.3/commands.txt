@@ -1,0 +1,11 @@
+10
+LETTER Surrey Bill Burnaby Apple
+LETTER Vancouver Bill Burnaby Tom
+PACKAGE Vancouver Simon Burnaby 500 3500
+DAY
+DAY
+PICKUP Burnaby Bill
+DAY
+DAY
+DAY
+DAY
