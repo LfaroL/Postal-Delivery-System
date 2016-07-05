@@ -16,7 +16,7 @@ Results are written on a text file for each office. <br />
 2. Initializes black-listed customers read from "Wanted.txt" <br />
 3. Execute commands read from "Commands.txt" <br />
 
-<b>
+<br />
 
 <b>Text Files:</b>  <br />
 1. Offices.txt  <br />
