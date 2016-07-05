@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class RunCommand {
+public class Main {
 	private static Set<Office> offices = new HashSet<>();
 	private static Set<String> wanted;
 	private static Network network;
