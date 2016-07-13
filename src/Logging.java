@@ -16,7 +16,7 @@ public class Logging {
 	static PrintWriter masterWriter;
 	static PrintWriter frontWriter;
 	
-	// HashMap to store an office with its associated file writer
+	// Store an office with its associated file writer
 	static Map<String, PrintWriter> officeWriterMap = new HashMap<>();
 	
 	// Creates the text files and assigns the offices with their appropriate writer type

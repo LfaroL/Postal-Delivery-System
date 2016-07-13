@@ -175,16 +175,15 @@ public class Office {
 		}
 	}
 	
-	// Destroy office if return recipient is a criminal
-	public boolean destroyOffice(String recipient, Set<String> wanted, int day) {
-		boolean destroyOffice = false;
+	public boolean checkIfWanted(String recipient) {
+		boolean wantedCriminal = false;
 		int size = toPickUp.size();
 		for (int index = size-1 ; index >= 0 ; index--) {
 			Deliverable d = toPickUp.get(index);
 			if (recipient.equals(d.getRecipient())) {
 				if (d instanceof Letter) {
 					if (wanted.contains(((Letter)d).getReturnRecipient())) {
-						destroyOffice = true;	
+						wantedCriminal = true;	
 //						returnAllLettersToSender(recipient,  day);
 
 					}
@@ -193,8 +192,9 @@ public class Office {
 				break;
 			}
 		}
-		return destroyOffice;
+		return wantedCriminal;
 	}
+	
 	public boolean pickUp(String recipient, int day) {
 		boolean pickedUp = false;
 		int size = toPickUp.size();

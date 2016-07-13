@@ -5,26 +5,30 @@ import java.util.Map;
 import java.util.Set;
 
 /* Class that handles deliverable in transit */
-
 public class Network {
 	private List<Deliverable> deliverablesInTransit = new ArrayList<>();
+	// Store office name with its associated office
 	private Map<String, Office> officeMap = new HashMap<>();
 	public void put(Deliverable d) {
 		deliverablesInTransit.add(d);
 	}
 
 	public void checkAndDeliver(int day) {
+		// Checks every deliverable in transit if it should arrive to its destination
 		for (int index = deliverablesInTransit.size() -1 ; index >= 0 ; index--) {
 			Deliverable d = deliverablesInTransit.get(index);
 			Office initOffice = d.getInitiatingOffice();
 			Office destOffice = d.getDestOffice();
+			// If deliverable is due to arrive
 			if (d.getDaysInTransit() + initOffice.getTransitTime() + 1 <= day) {
+				// If deliverable's destination exists
 				if (d.getDestOffice() != null && d.getDestOffice().getTransitTime() != -1) {
 					Logging.transitArrived(Logging.LogType.OFFICE, d);
 					deliverablesInTransit.remove(index);
 					//put the deliverable into this office
 					destOffice.receiveFromNetwork(d);
 				} else {
+					// Send back if letter, destroy if package
 					if (destOffice.ifLetter(d)) {
 						Letter letter = destOffice.switchLetter(d, day + 2);
 						deliverablesInTransit.remove(index);

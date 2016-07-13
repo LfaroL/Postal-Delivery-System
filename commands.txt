@@ -1,8 +1,13 @@
-7
-BUILD Paris 1 10 1000 10000 5000
-BUILD Mars 1 10 1000 10000 4000
+12
+LETTER Vancouver Tom Burnaby Bill
 DAY
+PICKUP Burnaby Tom
+GOOD
+LETTER Vancouver Tom Burnaby Bill
 DAY
-BUILD Mars 1 10 1000 10000 4000
+PICKUP Burnaby Tom
+GOOD
+LETTER Vancouver Tom Burnaby Bill
+DAY
 DAY
 DAY

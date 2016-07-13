@@ -148,8 +148,9 @@ public class Main {
 					previousPickUpGood = false;
 				} else {
 					Office office = getOffice(dest);
-					destroyOffice = office.destroyOffice(recipient, wanted, day);
+					destroyOffice = office.checkIfWanted(recipient);
 					previousPickUpGood = office.pickUp(recipient, day);
+					
 					if (destroyOffice) {
 						// return All letters to sender
 						office.setTransitTime(-1);
