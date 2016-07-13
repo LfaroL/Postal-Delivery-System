@@ -1,11 +1,8 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -102,15 +99,15 @@ public class Main {
 		//Initialize Logging
 		Logging.initialize(offices);
 
-		int idx = 0;
+		int index = 0;
 		int day = 1;
 		int totalDays = 0;
 
-		List<Integer> skipIDX = new ArrayList<Integer>();
+		List<Integer> skipindex = new ArrayList<Integer>();
 		
 		boolean destroyOffice = false;
 		boolean previousPickUpGood = false;
-		boolean hasPendingDeliverables = true;
+//		boolean hasPendingDeliverables = true;
 		boolean sneakOn = false;
 		
 		for (int x = 0 ; x < commands.size(); x++) {
@@ -120,11 +117,11 @@ public class Main {
 			}
 		}
 		
-		while (idx < commands.size()) {
+		while (index < commands.size()) {
 			//Start of the day, check if any in transit items have arrived
 			network.checkAndDeliver(day);
 			
-			String cmd = commands.get(idx);
+			String cmd = commands.get(index);
 			if (isDayCommand(cmd)) {
 				//End of the day.
 				for (Office o : offices) {
@@ -250,26 +247,26 @@ public class Main {
 				
 				boolean timeTravelDayValid = timeTravelDayValid(daysToTimeTravel, day, totalDays);
 				if (timeTravelDayValid) {
-					skipIDX.add(idx);
-					String timeTravelCMD = commands.get(idx);
+					skipindex.add(index);
+					String timeTravelCMD = commands.get(index);
 					while (daysToTimeTravel != 0) {
 						if (daysToTimeTravel < 0) {
-							idx--;
-							timeTravelCMD = commands.get(idx);
+							index--;
+							timeTravelCMD = commands.get(index);
 							if (isDayCommand(timeTravelCMD)) {
 								daysToTimeTravel++;
 							}
 						} else if (daysToTimeTravel > 0) {
-							idx++;		
+							index++;		
 							// To go over the day the command
-							timeTravelCMD = commands.get(idx-1);
+							timeTravelCMD = commands.get(index-1);
 							if (isDayCommand(timeTravelCMD)) {
 								daysToTimeTravel--;
 							}
 						}
 					}
 				} else if (!timeTravelDayValid){
-					idx = commands.size();
+					index = commands.size();
 					network.destroyLetters();
 					
 					for (Office o : offices) {
@@ -292,10 +289,10 @@ public class Main {
 			} else if (isGoodCommand(cmd)) {
 				if (previousPickUpGood) {
 					// skip rest of day
-					String goodCMD = commands.get(idx+1);
+					String goodCMD = commands.get(index+1);
 					while (!isDayCommand(goodCMD)) {
-						idx++;	
-						goodCMD = commands.get(idx+1);
+						index++;	
+						goodCMD = commands.get(index+1);
 					}
 					Logging.goodEnough(Logging.LogType.MASTER);
 				}
@@ -323,10 +320,10 @@ public class Main {
 			
 			//Ready for next day
 			if (!isScienceCommand(cmd)) {
-				idx++;
-				for (int i : skipIDX) {
-					if (idx == i) {
-						idx++; 
+				index++;
+				for (int i : skipindex) {
+					if (index == i) {
+						index++; 
 					}
 				}
 			}

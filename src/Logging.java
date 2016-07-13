@@ -12,9 +12,14 @@ public class Logging {
 	public static enum LogType {
 		MASTER, FRONT, OFFICE
 	};
+	// Writers for different text files
 	static PrintWriter masterWriter;
 	static PrintWriter frontWriter;
+	
+	// HashMap to store an office with its associated file writer
 	static Map<String, PrintWriter> officeWriterMap = new HashMap<>();
+	
+	// Creates the text files and assigns the offices with their appropriate writer type
 	public static void initialize (Set<Office> offices) throws FileNotFoundException, UnsupportedEncodingException {
 		String baseDir = System.getProperty("user.dir");
 		masterWriter = new PrintWriter(baseDir + "\\Output\\log_master.txt", "UTF-8");
@@ -26,12 +31,14 @@ public class Logging {
 		}
 	}
 
+	// Create a new text file and writer for an office
 	public static void createNewLogFile(Office o) throws IOException {
 		String baseDir = System.getProperty("user.dir");
 		PrintWriter writer = new PrintWriter(new FileWriter((baseDir +"\\Output\\log_" + o.getName() + ".txt"), true));
 		officeWriterMap.put(o.getName(), writer);
 	}
 	
+	// Gets the proper writer to log activity on the proper text file
 	static private PrintWriter getWriter (LogType type, String officeName) {
 		if (type == LogType.MASTER) {
 			return masterWriter;
@@ -69,7 +76,6 @@ public class Logging {
 
 	static public void rejectDeliverable(LogType type, Deliverable d) {
 		String src = d.getInitiatingOffice().getName();
-		String dest = d.getDestOffice() != null ? d.getDestOffice().getName() : d.getIntendedDest();
 		  
 		PrintWriter w = getWriter(type, src);
 		if (w != null) {

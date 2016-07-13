@@ -1,9 +1,4 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,10 +12,13 @@ public class Office {
 	private List<Deliverable> toMail = new ArrayList<>();
 	private List<Deliverable> toPickUp = new ArrayList<>();
 
+	// Set to store black-listed criminals
 	private Set<String> wanted;
 	public void setWanted(Set<String> wanted) {
 		this.wanted = wanted;
 	}
+	
+	// Contains reference to network for sending deliverables
 	private Network network;
 	public void setNetwork(Network network) {
 		this.network = network;
@@ -78,12 +76,17 @@ public class Office {
 	}
 	
 	public void acceptLetterIfGood(Letter letter, boolean sneakOn) {
+		// Check if recipient is wanted and if office is full
 		boolean hasCriminalRecipient = wanted.contains(letter.getRecipient());
 		boolean officeFull = isFull();
 		Office destOffice = letter.getDestOffice();
+		
+		// If package is bribed to be delivered, accept regardless of restrictions
 		if (sneakOn) {
 			accept(letter);
-		} else if ((destOffice != null && destOffice.getTransitTime() != -1)&& !hasCriminalRecipient && !officeFull) {
+		} 
+		// Check restrictions (destination office exists, recipient not criminal and office is not full)
+		else if ((destOffice != null && destOffice.getTransitTime() != -1)&& !hasCriminalRecipient && !officeFull) {
 			accept(letter);
 		} else {
 			Logging.rejectDeliverable(Logging.LogType.MASTER, letter);
@@ -97,9 +100,16 @@ public class Office {
 		boolean lengthFitSrc = (pkg.getLength() < getMaxPackageLength());
 		Office destOffice = pkg.getDestOffice();
 		Office srcOffice = pkg.getInitiatingOffice();
+		
+		// If package is bribed to be delivered, accept regardless of restrictions
 		if (sneakOn) {
 			srcOffice.accept(pkg);
-		} else if (!hasCriminalRecipient && !officeFull
+		} 
+		// Check restrictions (destination office exists, 
+		// package doesn't exceed max length of source and destination office,
+		// required postage fee is paid, and
+		// recipient is not criminal and office is not full)
+		else if (!hasCriminalRecipient && !officeFull
 				&& lengthFitSrc && pkg.getMoney() >= srcOffice.getRequiredPostage() &&
 				(destOffice != null && destOffice.getTransitTime() != -1) && 
 				(pkg.getLength() <= destOffice.getMaxPackageLength())) {
@@ -140,9 +150,9 @@ public class Office {
 	}
 
 	public void sendToNetwork() {
-		for (int idx = toMail.size()-1 ; idx >= 0 ; idx--) {
-			Deliverable d = toMail.get(idx);
-			toMail.remove(idx);
+		for (int index = toMail.size()-1 ; index >= 0 ; index--) {
+			Deliverable d = toMail.get(index);
+			toMail.remove(index);
 			network.put(d);
 			if (d.getDaysInTransit() == d.getInitDay()) {
 				Logging.transitSent(Logging.LogType.OFFICE, d);
@@ -152,26 +162,26 @@ public class Office {
 	
 	public void returnAllLettersToSender(Office office, int day) {
 		int size = toPickUp.size();
-		for (int idx = size-1 ; idx >= 0 ; idx--) {
-			Deliverable d = toPickUp.get(idx);
+		for (int index = size-1 ; index >= 0 ; index--) {
+			Deliverable d = toPickUp.get(index);
 			if (d.getDestOffice() == office) { 
 				if (ifLetter(d)) {
-					returnLetterToSender(d, day, idx);
+					returnLetterToSender(d, day, index);
 				}
 				else {
-					remove(d, idx);
+					remove(d, index);
 				}
 			}
 		}
 	}
 	
+	// Destroy office if return recipient is a criminal
 	public boolean destroyOffice(String recipient, Set<String> wanted, int day) {
 		boolean destroyOffice = false;
 		int size = toPickUp.size();
-		for (int idx = size-1 ; idx >= 0 ; idx--) {
-			Deliverable d = toPickUp.get(idx);
+		for (int index = size-1 ; index >= 0 ; index--) {
+			Deliverable d = toPickUp.get(index);
 			if (recipient.equals(d.getRecipient())) {
-				// destroy office if return recipient is criminal
 				if (d instanceof Letter) {
 					if (wanted.contains(((Letter)d).getReturnRecipient())) {
 						destroyOffice = true;	
@@ -188,10 +198,10 @@ public class Office {
 	public boolean pickUp(String recipient, int day) {
 		boolean pickedUp = false;
 		int size = toPickUp.size();
-		for (int idx = size-1 ; idx >= 0 ; idx--) {
-			Deliverable d = toPickUp.get(idx);
+		for (int index = size-1 ; index >= 0 ; index--) {
+			Deliverable d = toPickUp.get(index);
 			if (recipient.equals(d.getRecipient())) {
-				toPickUp.remove(idx);
+				toPickUp.remove(index);
 				Logging.itemComplete(Logging.LogType.OFFICE, d, day+1);
 				pickedUp = true;
 			}
@@ -201,13 +211,13 @@ public class Office {
 
 	public void drop(int day) {
 		int size = toPickUp.size();
-		for (int idx = size-1 ; idx >= 0 ; idx--) {
-			Deliverable d = toPickUp.get(idx);
+		for (int index = size-1 ; index >= 0 ; index--) {
+			Deliverable d = toPickUp.get(index);
 			if (ifLetter(d) && day - d.getInitDay() > 14) {
-				returnLetterToSender(d, day, idx);	
+				returnLetterToSender(d, day, index);	
 			}
 			else if (day - d.getInitDay() > 14) {
-				remove(d, idx);
+				remove(d, index);
 			}
 		}
 	}
@@ -216,6 +226,7 @@ public class Office {
 		return (d instanceof Letter) && !((Letter)d).getReturnRecipient().equals("NONE");
 	}
 	
+	// Replaces the recipient of the letter with the sender
 	public Letter switchLetter(Deliverable d, int day) {
 		Letter letter = new Letter();
 		letter.setDestOffice(d.getInitiatingOffice());
@@ -229,6 +240,7 @@ public class Office {
 		return letter;
 	}
 	
+	// Add the days in transit of a letter
 	public Letter delayLetter(Deliverable d, int delayTime) {
 		Letter letter = new Letter();
 		letter.setDestOffice(d.getDestOffice());
@@ -242,6 +254,7 @@ public class Office {
 		return letter;		
 	}
 	
+	// Add the days in transit of a package
 	public Package delayPackage(Deliverable d, int delayTime) {
 		Package pkg = new Package();
 		pkg.setInitiatingOffice(d.getInitiatingOffice());
@@ -255,34 +268,35 @@ public class Office {
 
 		return pkg;		
 	}
-	
-	public void returnLetterToSender(Deliverable d, int day, int idx) {
+
+	// When a letter is not picked up after 14 days, return to sender
+	public void returnLetterToSender(Deliverable d, int day, int index) {
 		Letter letter = switchLetter(d, day);
-		toPickUp.remove(idx);
+		toPickUp.remove(index);
 		toMail.add(letter);
 		Logging.newDeliverable(Logging.LogType.OFFICE, letter);		
 	}
 	
-	public void remove(Deliverable d, int idx) {
-		toPickUp.remove(idx);
+	public void remove(Deliverable d, int index) {
+		toPickUp.remove(index);
 		Logging.deliverableDestroyed(Logging.LogType.MASTER, d);
 		Logging.deliverableDestroyed(Logging.LogType.OFFICE, d);
 	}
 	
 	public void removeAllLetters() {
 		int size = toPickUp.size();
-		for (int idx = size-1 ; idx >= 0 ; idx--) {
-			Deliverable d = toPickUp.get(idx);
+		for (int index = size-1 ; index >= 0 ; index--) {
+			Deliverable d = toPickUp.get(index);
 			if (d instanceof Letter) {
-				toPickUp.remove(idx);
+				toPickUp.remove(index);
 			}
 		}
 	}
 	
 	public void removeAllPackages() {
 		int size = toPickUp.size();
-		for (int idx = size-1 ; idx >= 0 ; idx--) {
-			toPickUp.remove(idx);
+		for (int index = size-1 ; index >= 0 ; index--) {
+			toPickUp.remove(index);
 		}	
 	}
 	
@@ -293,23 +307,23 @@ public class Office {
 	
 	public void delayDeliverables(String recipient, int day, int delayTime) {
 		int pickUpSize = toPickUp.size();
-		for (int idx = pickUpSize-1 ; idx >= 0 ; idx--) {
-			Deliverable d = toPickUp.get(idx);
+		for (int index = pickUpSize-1 ; index >= 0 ; index--) {
+			Deliverable d = toPickUp.get(index);
 			if (recipient.equals(d.getRecipient())) {
 				if (d instanceof Letter) {
 					Letter letter = delayLetter(d, delayTime);
-					toPickUp.remove(idx);
+					toPickUp.remove(index);
 					toMail.add(letter);
 				} else {
 					Package pkg = delayPackage(d, delayTime);
-					toPickUp.remove(idx);
+					toPickUp.remove(index);
 					toMail.add(pkg);
 				}
 			}
 		}
 //		int mailSize = toMail.size();
-//		for (int idx = mailSize-1 ; idx >= 0 ; idx--) {
-//			Deliverable d = toMail.get(idx);
+//		for (int index = mailSize-1 ; index >= 0 ; index--) {
+//			Deliverable d = toMail.get(index);
 //			if (recipient.equals(d.getRecipient())) {
 //				d.setInitDay(d.getInitDay() - delayTime);
 //			}
@@ -318,10 +332,10 @@ public class Office {
 	
 	public void destroyLetters() {
 		int pickUpSize = toPickUp.size();
-		for (int idx = pickUpSize-1 ; idx >= 0 ; idx--) {
-			Deliverable d = toPickUp.get(idx);
+		for (int index = pickUpSize-1 ; index >= 0 ; index--) {
+			Deliverable d = toPickUp.get(index);
 			if (d instanceof Letter) {
-				toPickUp.remove(idx);
+				toPickUp.remove(index);
 				Logging.deliverableDestroyed(Logging.LogType.MASTER, d);
 				Logging.deliverableDestroyed(Logging.LogType.OFFICE, d);
 			}
@@ -330,9 +344,9 @@ public class Office {
 	
 	public void destroyPackages() {
 		int pickUpSize = toPickUp.size();
-		for (int idx = pickUpSize-1 ; idx >= 0 ; idx--) {
-			Deliverable d = toPickUp.get(idx);
-			toPickUp.remove(idx);
+		for (int index = pickUpSize-1 ; index >= 0 ; index--) {
+			Deliverable d = toPickUp.get(index);
+			toPickUp.remove(index);
 			Logging.deliverableDestroyed(Logging.LogType.MASTER, d);
 			Logging.deliverableDestroyed(Logging.LogType.OFFICE, d);
 		}
@@ -345,12 +359,12 @@ public class Office {
 	
 	public void inflationCommand() {
 		int pickUpSize = toPickUp.size();
-		for (int idx = pickUpSize-1 ; idx >= 0 ; idx--) {
+		for (int index = pickUpSize-1 ; index >= 0 ; index--) {
 			setRequiredPostage(getRequiredPostage() + 1);
 			setPersuasionAmount(getPersuasionAmount() + 1);		
 		}
 		int mailSize = toMail.size();
-		for (int idx = mailSize-1 ; idx >= 0 ; idx--) {
+		for (int index = mailSize-1 ; index >= 0 ; index--) {
 			setRequiredPostage(getRequiredPostage() + 1);
 			setPersuasionAmount(getPersuasionAmount() + 1);
 		}
@@ -358,14 +372,14 @@ public class Office {
 	
 	public void deflationCommand() {
 		int pickUpSize = toPickUp.size();
-		for (int idx = pickUpSize-1 ; idx >= 0 ; idx--) {
+		for (int index = pickUpSize-1 ; index >= 0 ; index--) {
 			if (getRequiredPostage() - 1 != 0) {
 				setRequiredPostage(getRequiredPostage() - 1);
 			}
 			setPersuasionAmount(getPersuasionAmount() - 1);	
 		}
 		int mailSize = toMail.size();
-		for (int idx = mailSize-1 ; idx >= 0 ; idx--) {
+		for (int index = mailSize-1 ; index >= 0 ; index--) {
 			if (getRequiredPostage() - 1 != 0) {
 				setRequiredPostage(getRequiredPostage() - 1);
 			}			
