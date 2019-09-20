@@ -47,4 +47,12 @@ Results are written on a text file for each office. <br />
 4.1 Package <br />
 4.2 Letter <br />
 5. Logging <br />
+<br />
+
+<b>Basic UML Diagram:</b> <br />
+<img src="PostalDeliveryUML.jpg" alt="Basic UML Diagram" width=482 height=537>
+
+<br />
+<b>Detailed UML Diagram:</b> <br />
+<img src="PostalDeliveryUML-Detailed.png" alt="Detailed UML Diagram" width=482 height=537>
 
