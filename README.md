@@ -42,9 +42,9 @@ Results are written on a text file for each office. <br />
 <b>Classes:</b> <br />
 1. Main <br />
 2. Office <br />
-3 .Network <br />
+3. Network <br />
 4. Deliverable <br />
-5. Package <br />
-6. Letter <br />
-7. Logging <br />
+4.1 Package <br />
+4.2 Letter <br />
+5. Logging <br />
 
