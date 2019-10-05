@@ -10,7 +10,7 @@ Feb - Mar 2016 <br />
   <li>Encapsulation - wrapping up attributes and behavior of an object and put in a single unit</li>
   <li>Abstraction - hide internal implementation and provide only essential information</li>
   <li>Inheritance - taking on the properties of an existing class (subclass inherits from superclass)</li>
-  <li>Polymorphism - changing the behavior of a class while sharing a common interface (different classes provide their own implementation)</li>
+  <li>Polymorphism - ability of an object to take on many forms (different classes providing their own implementation of an interface or subclass overriding its parent class' function )</li>
   </ul>
   
     
