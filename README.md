@@ -5,6 +5,15 @@ Feb - Mar 2016 <br />
 
 <br />
 
+<b>OOP:</b> <br />
+<ul>
+  <li>Encapsulation - wrapping up attributes and behavior of an object and put in a single unit</li>
+  <li>Abstraction - hide internal implementation and provide only essential information</li>
+  <li>Inheritance - taking on the properties of an existing class (subclass inherits from superclass)</li>
+  <li>Polymorphism - changing the behavior of a class while sharing a common interface (subclass provides its own implementation)</li>
+  </ul>
+  
+    
 <b>Postal Delivery System:</b> <br />
 The application sets up offices then executes the commands that simulate the work of operations in postal offices. <br />
 Results are written on a text file for each office. <br />
